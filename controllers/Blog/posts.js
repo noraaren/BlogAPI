@@ -1,4 +1,4 @@
-const db = require("../../db/quieries")
+const db = require("../../db/prisma-quieries")
 
 async function getPosts(req, res){
     try{
@@ -31,9 +31,23 @@ async function getPostsByID(req, res){
 }
 
 
+async function createPost(req, res){
+    try{
+        const {title, content, userID} = req.body;
+        const post = await db.createPost(title, content, userID);
+        res.status(201).json(post);
+    }catch(error){
+        res.status(500).json({error: error.message});
+        console.error("Error creating post", error);
+    }
+}
+
+
+
 
 
 module.exports = {
     getPosts,
-    getPostsByID
+    getPostsByID, 
+    createPost
 }

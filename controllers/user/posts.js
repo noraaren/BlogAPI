@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../../db/quieries");
+const db = require("../../db/prisma-quieries");
 
 async function getPostsByUserID(req, res){
     try{
