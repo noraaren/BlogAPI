@@ -19,6 +19,23 @@ async function postComments(req, res){
 
 }
 
+
+async function deleteComment(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(400).json({ error: "Comment ID is required" });
+  
+      const deleted = await db.deleteComment(id);
+      if (!deleted) return res.status(404).json({ error: "Comment not found" });
+  
+      res.status(200).json(deleted);
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
+  
+
 module.exports = {
-    postComments
+    postComments, 
+    deleteComment
 };
